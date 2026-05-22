@@ -1,0 +1,111 @@
+BRIEFING PARA LANDING PAGE DE MENTORIA
+Use este conteúdo para criar uma landing page de vendas de mentoria individual.
+Cole tudo isso no Claude e peça: "Crie uma landing page de vendas com esse conteúdo".
+
+========================================
+OBJETIVO DA PÁGINA
+========================================
+Vender vagas de mentoria individual para mulheres em transição ou crescimento de carreira.
+A página deve convencer e converter. Tom: direto, humano, sem exageros.
+Estrutura esperada: hero > para quem é > o que está incluído > sobre a mentora > depoimentos > preço > FAQ > CTA final.
+
+========================================
+IDENTIDADE
+========================================
+Nome da mentora: Michele Quadros
+Especialidade: Desenvolvimento de carreira feminina
+Experiência: mais de 10 anos de atuação, mais de 300 profissionais orientadas em transições de carreira
+Bio curta: Especialista em ajudar mulheres a encontrarem clareza e confiança para dar o próximo passo na carreira. Combina escuta ativa com estratégia prática para transformar paralisia em ação.
+
+========================================
+HERO (topo da página)
+========================================
+Badge: Mentoria individual — turma limitada
+Título: Transforme sua carreira com uma mentora que já percorreu esse caminho
+Subtítulo: Acompanhamento estratégico e personalizado para mulheres que querem clareza, direção e resultados reais na carreira — sem enrolação.
+Botão principal: Quero garantir minha vaga
+Botão secundário: Ver como funciona
+
+========================================
+PARA QUEM É
+========================================
+Bloco 1 — Em transição de carreira
+Quer mudar de área mas não sabe por onde começar sem perder o que já construiu.
+
+Bloco 2 — Quer crescer mais rápido
+Sente que está estagnada e quer acelerar a progressão sem depender da sorte ou de indicações.
+
+Bloco 3 — Precisa de direção
+Tem energia e vontade, mas falta um mapa claro de onde quer chegar e como chegar lá.
+
+========================================
+O QUE ESTÁ INCLUÍDO
+========================================
+- 6 sessões individuais ao vivo de 1h cada, com gravação disponível
+- Diagnóstico completo de carreira na primeira sessão
+- Plano de ação personalizado com metas e marcos claros
+- Suporte por WhatsApp entre as sessões (dias úteis)
+- Acesso à comunidade exclusiva de alunas
+- Materiais e templates de posicionamento profissional e currículo
+
+Duração do programa: 3 meses
+
+========================================
+DEPOIMENTOS
+========================================
+1.
+"Em dois meses eu saí de um emprego que me deixava exausta e entrei numa empresa que sempre quis. Ela me ajudou a enxergar o que eu mesma não conseguia ver."
+— Fernanda S., analista de marketing
+
+2.
+"Entrei sem saber o que queria. Saí com um plano de 12 meses, uma proposta nova e autoconfiança que não sabia que tinha."
+— Juliana R., gerente de projetos
+
+3.
+"Achei que era tarde demais para mudar. Em três sessões já estava com entrevistas marcadas na área que sempre quis."
+— Patricia M., engenheira em transição para produto
+
+========================================
+PREÇO E OFERTA
+========================================
+Valor: R$ 2.400
+Parcelamento: em até 12x no cartão
+Garantia: 7 dias. Se não for o que esperava, devolvemos o valor integralmente.
+Vagas disponíveis: turma limitada a 8 alunas por ciclo
+
+========================================
+FAQ
+========================================
+P: As sessões são ao vivo ou gravadas?
+R: As sessões acontecem ao vivo via Google Meet. Todas são gravadas e ficam disponíveis para você assistir quantas vezes quiser.
+
+P: Funciona para quem está no começo da carreira?
+R: Sim. A mentoria é personalizada ao momento de cada aluna, seja no início ou em transição após anos de experiência.
+
+P: Quantas vagas têm disponíveis?
+R: A turma é limitada a 8 alunas por ciclo para garantir atenção individual. As inscrições fecham quando as vagas esgotam.
+
+P: Como acontece o suporte entre as sessões?
+R: Você tem acesso a um grupo exclusivo no WhatsApp onde pode tirar dúvidas e compartilhar avanços. Respondo em dias úteis em até 24h.
+
+P: Posso parcelar?
+R: Sim. O investimento pode ser parcelado em até 12x no cartão de crédito.
+
+========================================
+CTA FINAL
+========================================
+Título: Pronta para dar o próximo passo?
+Subtítulo: As vagas são limitadas e a próxima turma começa em breve. Não deixe para depois.
+Botão: Quero garantir minha vaga
+
+========================================
+INSTRUÇÕES DE ESTILO PARA O CLAUDE DESIGN
+========================================
+- Visual limpo, moderno, feminino sem ser infantil
+- Paleta sugerida: tons de roxo ou rosa escuro como cor principal, off-white como fundo, toques de verde para elementos de confirmação (check, garantia)
+- Tipografia: sem serifa, tamanhos bem hierarquizados
+- Sem exagero de ícones ou elementos decorativos
+- Depoimentos em destaque, com nome e cargo da pessoa
+- Preço bem visível, com parcelamento logo abaixo
+- Garantia com ícone de escudo para transmitir segurança
+- Botões de CTA repetidos em pelo menos 3 pontos da página (hero, após conteúdo e no final)

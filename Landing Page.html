@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Michele Quadros — Mentoria individual de carreira</title>
+<link rel="stylesheet" href="assets/tokens.css" />
+<style>
+  /* ===================================================================
+     CLEAN & MODERN — Michele Quadros
+     - Off-white paper background, navy text, single blue accent
+     - Hairline borders, near-zero shadows, generous whitespace
+     - One bold display piece (typewriter), everything else quiet
+  =================================================================== */
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--rm-font);
+    color: var(--rm-gray-600);
+    background: #f5f6f8;
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    position: relative;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* ============ BACKGROUND FX ============ */
+  .bg-fx {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  /* Subtle dot grid */
+  .bg-fx::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(rgba(0, 10, 19, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0;
+    mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+    opacity: 0.6;
+  }
+  /* Soft drifting orbs */
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+    will-change: transform;
+  }
+  .bg-orb-1 {
+    top: -120px; left: -140px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(3, 127, 240, 0.35) 0%, rgba(3, 127, 240, 0) 70%);
+    animation: orbFloat1 28s ease-in-out infinite;
+  }
+  .bg-orb-2 {
+    top: 30%; right: -160px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0, 32, 63, 0.18) 0%, rgba(0, 32, 63, 0) 70%);
+    animation: orbFloat2 36s ease-in-out infinite;
+  }
+  .bg-orb-3 {
+    bottom: -180px; left: 35%;
+    width: 580px; height: 580px;
+    background: radial-gradient(circle, rgba(3, 127, 240, 0.18) 0%, rgba(3, 127, 240, 0) 70%);
+    animation: orbFloat3 32s ease-in-out infinite;
+  }
+  @keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(80px, 60px) scale(1.1); }
+  }
+  @keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-100px, 80px) scale(0.95); }
+  }
+  @keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(60px, -70px) scale(1.05); }
+  }
+  /* Fine grain noise overlay */
+  .bg-fx::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bg-orb { animation: none; }
+  }
+
+  /* Everything above sits on top of the bg */
+  .topbar, section, footer { position: relative; z-index: 1; }
+
+  /* ---------- Layout ---------- */
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 64px);
+  }
+  section { padding: clamp(80px, 11vw, 140px) 0; }
+  .divider {
+    border: 0;
+    height: 1px;
+    background: rgba(0, 10, 19, 0.08);
+    margin: 0;
+  }
+
+  /* ---------- Typography ---------- */
+  h1, h2, h3 {
+    font-family: var(--rm-font);
+    color: var(--rm-ink);
+    font-weight: 800;
+    letter-spacing: -0.028em;
+    line-height: 1.05;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(40px, 5.8vw, 76px); }
+  h2 { font-size: clamp(32px, 4.2vw, 56px); }
+  h3 { font-size: clamp(19px, 1.6vw, 22px); letter-spacing: -0.015em; line-height: 1.25; }
+  p  { text-wrap: pretty; margin: 0; }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rm-blue);
+    margin: 0 0 28px;
+  }
+  .lead {
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.55;
+    color: var(--rm-gray-600);
+    max-width: 580px;
+  }
+
+  b, strong { color: var(--rm-ink); font-weight: 700; }
+  .blue { color: var(--rm-blue); }
+
+  /* ---------- Topbar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(245, 246, 248, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(0, 10, 19, 0.06);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    color: var(--rm-ink);
+    letter-spacing: -0.02em;
+    font-size: 16px;
+  }
+  .brand-dot {
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: var(--rm-blue);
+  }
+  .topbar-nav {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+  }
+  .topbar-nav a {
+    font-size: 14px;
+    color: var(--rm-gray-600);
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+  .topbar-nav a:hover { color: var(--rm-ink); }
+  @media (max-width: 820px) { .topbar-nav { display: none; } }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-family: var(--rm-font);
+    font-weight: 500;
+    font-size: 14px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--rm-ink); color: #fff; }
+  .btn-primary:hover { background: #000a13; opacity: 0.9; }
+  .btn-blue { background: var(--rm-blue); color: #fff; }
+  .btn-blue:hover { background: var(--rm-blue-600); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--rm-ink);
+    border-color: rgba(0, 10, 19, 0.18);
+  }
+  .btn-ghost:hover { border-color: var(--rm-ink); }
+  .btn-white { background: #fff; color: var(--rm-ink); }
+  .btn-white:hover { background: #f5f6f8; }
+  .btn-lg { padding: 16px 28px; font-size: 15px; }
+  .btn-icon {
+    width: 20px; height: 20px;
+    border-radius: 999px;
+    display: grid; place-items: center;
+    font-size: 11px;
+    background: rgba(255,255,255,0.18);
+  }
+  .btn-ghost .btn-icon,
+  .btn-white .btn-icon { background: transparent; border: 1px solid currentColor; }
+
+  /* ============ BRAND TYPEWRITER ============ */
+  .brand-band {
+    padding: clamp(56px, 8vw, 120px) 0 clamp(20px, 3vw, 40px);
+    text-align: center;
+  }
+  .brand-label-wrap { display: block; }
+  .brand-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rm-gray-500);
+    margin: 0 0 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-label::before,
+  .brand-label::after {
+    content: "";
+    width: 24px; height: 1px;
+    background: rgba(0, 10, 19, 0.15);
+  }
+  .tw-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1;
+  }
+  .tw-text {
+    font-family: var(--rm-font);
+    font-weight: 800;
+    color: var(--rm-ink);
+    letter-spacing: -0.04em;
+    font-size: clamp(40px, 7vw, 88px);
+    white-space: nowrap;
+    line-height: 1;
+    padding-bottom: 4px;
+    min-height: 1em;
+  }
+  .tw-accent { color: var(--rm-blue); }
+  .tw-cursor {
+    display: inline-block;
+    width: 4px;
+    height: clamp(32px, 5.2vw, 64px);
+    background: var(--rm-blue);
+    border-radius: 2px;
+    animation: tw-blink 0.9s steps(1, end) infinite;
+    transform: translateY(2px);
+  }
+  @keyframes tw-blink {
+    0%, 50%   { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tw-cursor { animation: none; }
+  }
+
+  /* ============ HERO ============ */
+  .hero { padding: clamp(20px, 3vw, 40px) 0 clamp(80px, 10vw, 140px); }
+  .hero-inner {
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    margin: 0 0 28px;
+  }
+  .hero h1 .accent {
+    color: var(--rm-blue);
+    font-style: italic;
+    font-weight: 800;
+  }
+  .hero-sub {
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.55;
+    color: var(--rm-gray-600);
+    max-width: 580px;
+    margin: 0 auto 40px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-meta {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 4vw, 56px);
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .hero-meta { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0, 10, 19, 0.1);
+    text-align: left;
+  }
+  @media (max-width: 700px) {
+    .hero-meta-item { text-align: center; align-items: center; }
+  }
+  .hero-meta-num {
+    font-weight: 800;
+    color: var(--rm-ink);
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .hero-meta-label {
+    font-size: 13px;
+    color: var(--rm-gray-500);
+  }
+
+  /* ============ SECTION HEAD ============ */
+  .head {
+    max-width: 720px;
+    margin: 0 0 clamp(56px, 7vw, 96px);
+  }
+  .head.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .head h2 { margin-bottom: 24px; }
+  .head p { color: var(--rm-gray-600); font-size: clamp(16px, 1.3vw, 18px); line-height: 1.55; }
+
+  /* ============ PARA QUEM É ============ */
+  .who-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid rgba(0, 10, 19, 0.1);
+  }
+  @media (max-width: 820px) { .who-list { grid-template-columns: 1fr; } }
+  .who-item {
+    padding: 40px 32px 40px 0;
+    border-bottom: 1px solid rgba(0, 10, 19, 0.1);
+    border-right: 1px solid rgba(0, 10, 19, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .who-item:last-child { border-right: none; padding-right: 0; }
+  @media (max-width: 820px) {
+    .who-item { border-right: none; padding: 32px 0; }
+  }
+  .who-num {
+    font-weight: 800;
+    color: var(--rm-blue);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+  }
+  .who-item h3 { color: var(--rm-ink); }
+  .who-item p {
+    color: var(--rm-gray-600);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  @media (min-width: 821px) {
+    .who-item:not(:last-child) { padding-left: 0; }
+    .who-item:nth-child(2),
+    .who-item:nth-child(3) { padding-left: 32px; }
+  }
+
+  /* ============ INCLUÍDO ============ */
+  .included-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+  @media (max-width: 900px) { .included-wrap { grid-template-columns: 1fr; } }
+  .included-aside { position: sticky; top: 100px; }
+  .included-aside .meta-pill {
+    margin-top: 32px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    border: 1px solid rgba(0, 10, 19, 0.12);
+    border-radius: 14px;
+    background: #fff;
+  }
+  .meta-pill-label {
+    font-size: 11px;
+    color: var(--rm-gray-500);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .meta-pill-val {
+    font-weight: 800;
+    color: var(--rm-ink);
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+
+  .included-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgba(0, 10, 19, 0.1);
+  }
+  .included-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(0, 10, 19, 0.1);
+    align-items: flex-start;
+  }
+  .included-check {
+    width: 24px; height: 24px;
+    border-radius: 999px;
+    background: var(--rm-ink);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    margin-top: 2px;
+  }
+  .included-check svg { width: 12px; height: 12px; }
+  .included-item-title {
+    color: var(--rm-ink);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .included-item-desc {
+    font-size: 15px;
+    color: var(--rm-gray-500);
+    line-height: 1.5;
+  }
+
+  /* ============ SOBRE ============ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-portrait {
+    aspect-ratio: 4 / 5;
+    border-radius: 24px;
+    background: var(--rm-ink);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+  .about-portrait:hover { transform: translateY(-2px); }
+  .about-portrait::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(3, 127, 240, 0.32) 0%, transparent 55%),
+      radial-gradient(circle at 80% 90%, rgba(255, 255, 255, 0.06) 0%, transparent 60%);
+  }
+  .about-portrait::after {
+    /* faint film-grain on the video card */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.6;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .video-corner {
+    position: absolute;
+    top: 20px; left: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    z-index: 2;
+  }
+  .video-corner-dot {
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.22);
+    animation: recPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes recPulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+  }
+  .video-meta {
+    position: absolute;
+    top: 20px; right: 20px;
+    z-index: 2;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    font-weight: 600;
+  }
+  .video-play {
+    position: relative;
+    z-index: 2;
+    width: clamp(72px, 9vw, 100px);
+    height: clamp(72px, 9vw, 100px);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.96);
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow:
+      0 0 0 0 rgba(255,255,255,0.5),
+      0 20px 40px rgba(0, 10, 19, 0.4);
+  }
+  .video-play::before {
+    /* Triangle play icon */
+    content: "";
+    width: 0; height: 0;
+    border-left: 22px solid var(--rm-ink);
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    margin-left: 6px;
+  }
+  .about-portrait:hover .video-play {
+    transform: scale(1.06);
+    box-shadow:
+      0 0 0 8px rgba(255,255,255,0.16),
+      0 24px 50px rgba(0, 10, 19, 0.5);
+  }
+  .video-caption {
+    position: absolute;
+    left: 24px; right: 24px; bottom: 24px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+  }
+  .video-caption-title {
+    font-weight: 800;
+    color: #fff;
+    font-size: clamp(20px, 2vw, 26px);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .video-caption-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.04em;
+  }
+  /* When a real <video> is dropped in, it sits behind the overlay */
+  .about-portrait video {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .about-content h2 { margin-bottom: 28px; }
+  .about-content p {
+    font-size: clamp(17px, 1.3vw, 19px);
+    line-height: 1.6;
+    color: var(--rm-gray-600);
+    margin-bottom: 18px;
+  }
+  .about-kpis {
+    display: flex;
+    gap: clamp(24px, 4vw, 48px);
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .about-kpi {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .about-kpi-val {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--rm-ink);
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .about-kpi-label {
+    font-size: 13px;
+    color: var(--rm-gray-500);
+    line-height: 1.35;
+  }
+
+  /* ============ DEPOIMENTOS ============ */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+  .testimonial {
+    background: #fff;
+    border: 1px solid rgba(0, 10, 19, 0.08);
+    border-radius: 20px;
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .testimonial-text {
+    color: var(--rm-ink);
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 10, 19, 0.08);
+  }
+  .testimonial-name {
+    font-weight: 700;
+    color: var(--rm-ink);
+    font-size: 14px;
+    letter-spacing: -0.005em;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .testimonial-role {
+    font-size: 13px;
+    color: var(--rm-gray-500);
+  }
+
+  /* ============ PREÇO ============ */
+  .pricing-card {
+    background: #fff;
+    border: 1px solid rgba(0, 10, 19, 0.08);
+    border-radius: 28px;
+    padding: clamp(40px, 5vw, 64px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+  @media (max-width: 820px) { .pricing-card { grid-template-columns: 1fr; } }
+
+  .pricing-label {
+    font-size: 12px;
+    color: var(--rm-blue);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .pricing-num {
+    font-family: var(--rm-font);
+    font-weight: 800;
+    font-size: clamp(60px, 8vw, 104px);
+    color: var(--rm-ink);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .pricing-num .currency {
+    font-size: 0.4em;
+    font-weight: 500;
+    color: var(--rm-gray-500);
+    vertical-align: top;
+    margin-right: 8px;
+    letter-spacing: 0;
+  }
+  .pricing-parc {
+    font-size: 16px;
+    color: var(--rm-gray-600);
+    margin-bottom: 28px;
+  }
+  .pricing-parc b { color: var(--rm-ink); }
+  .pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pricing-features li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    color: var(--rm-gray-600);
+    font-size: 15px;
+  }
+  .pricing-features li::before {
+    content: "";
+    flex-shrink: 0;
+    margin-top: 8px;
+    width: 6px; height: 6px;
+    border-radius: 999px;
+    background: var(--rm-blue);
+  }
+  .pricing-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .guarantee, .seats {
+    padding: 24px;
+    background: #f5f6f8;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .guarantee-head, .seats-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .guarantee-icon {
+    width: 32px; height: 32px;
+    border-radius: 999px;
+    background: var(--rm-ink);
+    color: #fff;
+    display: grid; place-items: center;
+  }
+  .guarantee-icon svg { width: 16px; height: 16px; }
+  .guarantee-title, .seats-title {
+    font-weight: 700;
+    color: var(--rm-ink);
+    font-size: 15px;
+    letter-spacing: -0.005em;
+  }
+  .guarantee p {
+    font-size: 14px;
+    color: var(--rm-gray-600);
+    line-height: 1.5;
+  }
+  .seats-meter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .seats-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(0, 10, 19, 0.08);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .seats-bar-fill {
+    height: 100%;
+    width: 62.5%;
+    background: var(--rm-blue);
+    border-radius: 999px;
+  }
+  .seats-count {
+    font-weight: 700;
+    color: var(--rm-ink);
+    font-size: 14px;
+    letter-spacing: -0.005em;
+  }
+  .seats-note {
+    font-size: 13px;
+    color: var(--rm-gray-500);
+  }
+
+  /* ============ FAQ ============ */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+  @media (max-width: 900px) { .faq-grid { grid-template-columns: 1fr; } }
+  .faq-list {
+    border-top: 1px solid rgba(0, 10, 19, 0.1);
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(0, 10, 19, 0.1);
+    overflow: hidden;
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    font-weight: 700;
+    color: var(--rm-ink);
+    font-size: 17px;
+    letter-spacing: -0.005em;
+    user-select: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    display: grid;
+    place-items: center;
+    color: var(--rm-ink);
+    transition: transform 0.25s ease;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); color: var(--rm-blue); }
+  .faq-answer {
+    padding: 0 0 24px;
+    color: var(--rm-gray-600);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0;
+  }
+
+  /* ============ FINAL CTA ============ */
+  .final-cta {
+    background: var(--rm-ink);
+    color: #fff;
+    border-radius: 28px;
+    padding: clamp(56px, 7vw, 96px) clamp(32px, 5vw, 80px);
+    text-align: center;
+    margin: 0 clamp(20px, 5vw, 64px) clamp(48px, 6vw, 80px);
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: "";
+    position: absolute;
+    bottom: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(3, 127, 240, 0.22) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .final-cta-inner {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+  .final-cta-eyebrow {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .final-cta h2 {
+    color: #fff;
+    font-size: clamp(36px, 4.8vw, 56px);
+  }
+  .final-cta-sub {
+    font-size: clamp(16px, 1.3vw, 18px);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.55;
+    max-width: 480px;
+    margin: 0;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 32px 0;
+    font-size: 13px;
+    color: var(--rm-gray-500);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-brand {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--rm-ink);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* ============ SUBTLE ANIMATIONS ============ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero > .container > * { animation: fadeUp 0.6s ease both; }
+</style>
+</head>
+<body>
+
+<!-- =========== BACKGROUND FX =========== -->
+<div class="bg-fx" aria-hidden="true">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+</div>
+
+<!-- =========== TOPBAR =========== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="#top" class="brand">
+      <span class="brand-dot"></span>
+      Michele Quadros
+    </a>
+    <nav class="topbar-nav">
+      <a href="#para-quem">Para quem é</a>
+      <a href="#incluido">O que inclui</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#preco">Investimento</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#preco" class="btn btn-primary">
+      Quero minha vaga
+      <span class="btn-icon">→</span>
+    </a>
+  </div>
+</header>
+
+<!-- =========== BRAND TYPEWRITER =========== -->
+<section class="brand-band" id="top" data-screen-label="01 Brand">
+  <div class="container">
+    <div class="brand-label-wrap">
+      <p class="brand-label">Mentoria de carreira feminina</p>
+    </div>
+
+    <div class="tw-row" aria-label="Michele Quadros">
+      <div class="tw-text">
+        <span class="tw-accent" id="tw-target" data-om-id="15e5e1c5:25"></span>
+      </div>
+      <span class="tw-cursor" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<!-- =========== HERO =========== -->
+<section class="hero" data-screen-label="02 Hero">
+  <div class="container">
+    <div class="hero-inner">
+      <h1>
+        Transforme sua carreira com uma mentora que <span class="accent">já percorreu</span> esse caminho.
+      </h1>
+      <p class="hero-sub">
+        Acompanhamento estratégico e personalizado para mulheres que querem
+        <b>clareza</b>, <b>direção</b> e resultados reais — sem enrolação.
+      </p>
+      <div class="hero-ctas">
+        <a href="#preco" class="btn btn-primary btn-lg">
+          Quero minha vaga
+          <span class="btn-icon">→</span>
+        </a>
+        <a href="#incluido" class="btn btn-ghost btn-lg">
+          Ver como funciona
+        </a>
+      </div>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-num">+10 anos</span>
+          <span class="hero-meta-label">de atuação em desenvolvimento de carreira</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-num">+300</span>
+          <span class="hero-meta-label">mulheres orientadas em transições</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-num">8 vagas</span>
+          <span class="hero-meta-label">por ciclo · atenção individual</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- =========== PARA QUEM =========== -->
+<section id="para-quem" data-screen-label="03 Para quem">
+  <div class="container">
+    <div class="head">
+      <p class="eyebrow">Para quem é</p>
+      <h2>A mentoria é para você que…</h2>
+    </div>
+    <div class="who-list">
+      <div class="who-item">
+        <span class="who-num">01</span>
+        <h3>Está em transição de carreira</h3>
+        <p>Quer mudar de área mas não sabe por onde começar sem perder o que já construiu.</p>
+      </div>
+      <div class="who-item">
+        <span class="who-num">02</span>
+        <h3>Quer crescer mais rápido</h3>
+        <p>Sente que está estagnada e quer acelerar a progressão sem depender da sorte ou de indicações.</p>
+      </div>
+      <div class="who-item">
+        <span class="who-num">03</span>
+        <h3>Precisa de direção</h3>
+        <p>Tem energia e vontade, mas falta um mapa claro de onde quer chegar e como chegar lá.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- =========== INCLUÍDO =========== -->
+<section id="incluido" data-screen-label="04 O que inclui">
+  <div class="container">
+    <div class="included-wrap">
+      <div class="included-aside">
+        <p class="eyebrow">O que inclui</p>
+        <h2>Tudo o que você recebe no programa.</h2>
+        <p style="margin-top: 24px; font-size: 17px; line-height: 1.55;">
+          Um programa pensado para entregar <b>clareza estratégica</b>, ferramentas práticas e acompanhamento real em cada etapa.
+        </p>
+        <div class="meta-pill">
+          <span class="meta-pill-label">Duração</span>
+          <span class="meta-pill-val">3 meses · 6 sessões</span>
+        </div>
+      </div>
+
+      <ul class="included-list">
+        <li class="included-item">
+          <span class="included-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <div>
+            <div class="included-item-title">6 sessões individuais ao vivo</div>
+            <div class="included-item-desc">1h cada, via Google Meet, com gravação disponível.</div>
+          </div>
+        </li>
+        <li class="included-item">
+          <span class="included-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <div>
+            <div class="included-item-title">Diagnóstico completo de carreira</div>
+            <div class="included-item-desc">Mapeamento profundo já na primeira sessão.</div>
+          </div>
+        </li>
+        <li class="included-item">
+          <span class="included-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <div>
+            <div class="included-item-title">Plano de ação personalizado</div>
+            <div class="included-item-desc">Com metas, marcos claros e prazos definidos.</div>
+          </div>
+        </li>
+        <li class="included-item">
+          <span class="included-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <div>
+            <div class="included-item-title">Suporte por WhatsApp</div>
+            <div class="included-item-desc">Entre as sessões, em dias úteis, com resposta em até 24h.</div>
+          </div>
+        </li>
+        <li class="included-item">
+          <span class="included-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <div>
+            <div class="included-item-title">Comunidade exclusiva de alunas</div>
+            <div class="included-item-desc">Network real com mulheres em momentos parecidos.</div>
+          </div>
+        </li>
+        <li class="included-item">
+          <span class="included-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <div>
+            <div class="included-item-title">Materiais e templates</div>
+            <div class="included-item-desc">Posicionamento profissional, currículo e LinkedIn.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- =========== SOBRE =========== -->
+<section id="sobre" data-screen-label="05 Sobre">
+  <div class="container">
+    <div class="about-grid">
+      <button class="about-portrait" type="button" id="play-intro" aria-label="Assistir vídeo de apresentação de Michele Quadros" style="border:0; padding:0; font-family:inherit;">
+        <!--
+          When the real intro video is ready, drop it in here:
+          <video src="assets/michele-intro.mp4" poster="assets/michele-poster.jpg" playsinline></video>
+        -->
+        <span class="video-corner">
+          <span class="video-corner-dot"></span>
+          Vídeo de apresentação
+        </span>
+        <span class="video-meta">~ 90s</span>
+
+        <span class="video-play" aria-hidden="true"></span>
+
+        <span class="video-caption">
+          <span class="video-caption-title">Quem é Michele?</span>
+          <span class="video-caption-sub">Ela conta em primeira pessoa · clique para assistir</span>
+        </span>
+      </button>
+      <div class="about-content">
+        <p class="eyebrow">Sobre a mentora</p>
+        <h2>Quem é Michele Quadros.</h2>
+        <p style="margin-top: 24px;">
+          Especialista em ajudar mulheres a encontrarem <b>clareza</b> e <b>confiança</b> para dar o próximo passo na carreira. Combina escuta ativa com estratégia prática para transformar paralisia em ação.
+        </p>
+        <p>
+          São mais de 10 anos atuando em desenvolvimento de carreira feminina e mais de 300 profissionais orientadas em momentos decisivos — de transições completas de área a saltos de senioridade dentro da mesma trilha.
+        </p>
+        <div class="about-kpis">
+          <div class="about-kpi">
+            <span class="about-kpi-val">+10 anos</span>
+            <span class="about-kpi-label">de experiência</span>
+          </div>
+          <div class="about-kpi">
+            <span class="about-kpi-val">+300</span>
+            <span class="about-kpi-label">mulheres orientadas</span>
+          </div>
+          <div class="about-kpi">
+            <span class="about-kpi-val">8 / ciclo</span>
+            <span class="about-kpi-label">turmas pequenas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- =========== DEPOIMENTOS =========== -->
+<section id="depoimentos" data-screen-label="06 Depoimentos">
+  <div class="container">
+    <div class="head">
+      <p class="eyebrow">Depoimentos</p>
+      <h2>Histórias de quem já passou por aqui.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <p class="testimonial-text">
+          Em dois meses eu saí de um emprego que me deixava exausta e entrei numa empresa que sempre quis. Ela me ajudou a enxergar o que eu mesma não conseguia ver.
+        </p>
+        <div class="testimonial-author">
+          <div>
+            <span class="testimonial-name">Fernanda S.</span>
+            <span class="testimonial-role">Analista de marketing</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-text">
+          Entrei sem saber o que queria. Saí com um plano de 12 meses, uma proposta nova e autoconfiança que não sabia que tinha.
+        </p>
+        <div class="testimonial-author">
+          <div>
+            <span class="testimonial-name">Juliana R.</span>
+            <span class="testimonial-role">Gerente de projetos</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-text">
+          Achei que era tarde demais para mudar. Em três sessões já estava com entrevistas marcadas na área que sempre quis.
+        </p>
+        <div class="testimonial-author">
+          <div>
+            <span class="testimonial-name">Patricia M.</span>
+            <span class="testimonial-role">Engenheira em transição para produto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- =========== PREÇO =========== -->
+<section id="preco" data-screen-label="07 Investimento">
+  <div class="container">
+    <div class="head center">
+      <p class="eyebrow">Investimento</p>
+      <h2>Um investimento que se paga em decisões certas.</h2>
+      <p style="margin-top: 24px;">Tudo o que está incluído, parcelamento flexível e garantia integral. Sem letra miúda.</p>
+    </div>
+
+    <div class="pricing-card">
+      <div>
+        <div class="pricing-label">Programa completo · 3 meses</div>
+        <div class="pricing-num">
+          <span class="currency">R$</span>2.400
+        </div>
+        <div class="pricing-parc">
+          ou <b>12x de R$ 200</b> no cartão
+        </div>
+        <ul class="pricing-features">
+          <li>6 sessões ao vivo de 1h, com gravação</li>
+          <li>Diagnóstico completo + plano de ação</li>
+          <li>Suporte por WhatsApp em dias úteis</li>
+          <li>Comunidade exclusiva + materiais</li>
+        </ul>
+        <a href="#" class="btn btn-blue btn-lg">
+          Quero minha vaga
+          <span class="btn-icon">→</span>
+        </a>
+      </div>
+
+      <div class="pricing-side">
+        <div class="guarantee">
+          <div class="guarantee-head">
+            <div class="guarantee-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <span class="guarantee-title">Garantia de 7 dias</span>
+          </div>
+          <p>
+            Se sentir que não é o que esperava, devolvemos <b>100% do valor</b>. Sem perguntas, sem burocracia.
+          </p>
+        </div>
+
+        <div class="seats">
+          <div class="seats-head">
+            <span class="seats-title">Vagas da próxima turma</span>
+          </div>
+          <div class="seats-meter">
+            <div class="seats-bar"><div class="seats-bar-fill"></div></div>
+            <span class="seats-count">5 / 8</span>
+          </div>
+          <span class="seats-note">Turma limitada a 8 alunas para atenção individual.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- =========== FAQ =========== -->
+<section id="faq" data-screen-label="08 FAQ">
+  <div class="container">
+    <div class="faq-grid">
+      <div>
+        <p class="eyebrow">Perguntas frequentes</p>
+        <h2 style="margin-bottom: 24px;">Tirou todas as dúvidas?</h2>
+        <p style="font-size: 16px; line-height: 1.55; margin-bottom: 24px;">
+          Se ainda restou alguma pergunta, escreve direto pra gente.
+        </p>
+        <a href="mailto:contato@michelequadros.com.br" class="btn btn-ghost">
+          Falar com a equipe
+          <span class="btn-icon">→</span>
+        </a>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>
+            As sessões são ao vivo ou gravadas?
+            <span class="faq-icon">+</span>
+          </summary>
+          <p class="faq-answer">
+            As sessões acontecem ao vivo via Google Meet. Todas são gravadas e ficam disponíveis para você assistir quantas vezes quiser.
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>
+            Funciona para quem está no começo da carreira?
+            <span class="faq-icon">+</span>
+          </summary>
+          <p class="faq-answer">
+            Sim. A mentoria é personalizada ao momento de cada aluna, seja no início ou em transição após anos de experiência.
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>
+            Quantas vagas têm disponíveis?
+            <span class="faq-icon">+</span>
+          </summary>
+          <p class="faq-answer">
+            A turma é limitada a 8 alunas por ciclo para garantir atenção individual. As inscrições fecham quando as vagas esgotam.
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>
+            Como acontece o suporte entre as sessões?
+            <span class="faq-icon">+</span>
+          </summary>
+          <p class="faq-answer">
+            Você tem acesso a um grupo exclusivo no WhatsApp onde pode tirar dúvidas e compartilhar avanços. Respondo em dias úteis em até 24h.
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>
+            Posso parcelar?
+            <span class="faq-icon">+</span>
+          </summary>
+          <p class="faq-answer">
+            Sim. O investimento pode ser parcelado em até 12x no cartão de crédito.
+          </p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FINAL CTA =========== -->
+<section style="padding: 0;" data-screen-label="09 CTA final">
+  <div class="final-cta">
+    <div class="final-cta-inner">
+      <span class="final-cta-eyebrow">Próxima turma · vagas abrindo</span>
+      <h2>Pronta para dar o próximo passo?</h2>
+      <p class="final-cta-sub">
+        As vagas são limitadas e a próxima turma começa em breve. Sua próxima posição não vai esperar.
+      </p>
+      <a href="#" class="btn btn-white btn-lg">
+        Quero minha vaga
+        <span class="btn-icon">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FOOTER =========== -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-dot"></span>
+      Michele Quadros · Mentoria de carreira
+    </div>
+    <div>© 2026 · contato@michelequadros.com.br</div>
+  </div>
+</footer>
+
+<script>
+  // ===== Typewriter loop: type → hold → erase → repeat =====
+  (function () {
+    const target = document.getElementById("tw-target");
+    if (!target) return;
+    const phrase = "Michele Quadros";
+    const typeMs    = 110;
+    const eraseMs   = 55;
+    const holdFull  = 1800;
+    const holdEmpty = 500;
+
+    let i = 0;
+    let mode = "type";
+
+    function tick() {
+      if (mode === "type") {
+        i++;
+        target.textContent = phrase.slice(0, i);
+        if (i >= phrase.length) {
+          mode = "hold-full";
+          setTimeout(tick, holdFull);
+        } else {
+          setTimeout(tick, typeMs);
+        }
+      } else if (mode === "hold-full") {
+        mode = "erase";
+        setTimeout(tick, eraseMs);
+      } else if (mode === "erase") {
+        i--;
+        target.textContent = phrase.slice(0, Math.max(0, i));
+        if (i <= 0) {
+          mode = "hold-empty";
+          setTimeout(tick, holdEmpty);
+        } else {
+          setTimeout(tick, eraseMs);
+        }
+      } else if (mode === "hold-empty") {
+        mode = "type";
+        setTimeout(tick, typeMs);
+      }
+    }
+    setTimeout(tick, 350);
+  })();
+</script>
+
+</body>
+</html>

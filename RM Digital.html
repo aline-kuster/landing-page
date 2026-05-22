@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RM Digital — Resultados que crescem com você</title>
+<link rel="stylesheet" href="assets/tokens.css" />
+<style>
+  /* ===== Reset + base ===== */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--rm-font);
+    color: var(--rm-gray-600);
+    background:
+      radial-gradient(ellipse at 50% -200px, rgba(3, 127, 240, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #eef1f5 0%, #e6e9ec 100%);
+    background-attachment: fixed;
+    line-height: var(--rm-lh-relaxed);
+    font-weight: var(--rm-w-light);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* ===== Layout ===== */
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 80px);
+  }
+  section { padding: clamp(80px, 10vw, 140px) 0; }
+
+  /* ===== Typography ===== */
+  h1, h2, h3 {
+    font-family: var(--rm-font);
+    color: var(--rm-ink);
+    font-weight: var(--rm-w-black);
+    letter-spacing: -0.025em;
+    line-height: var(--rm-lh-tight);
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(40px, 5.8vw, 80px); }
+  h2 { font-size: clamp(32px, 4.4vw, 56px); }
+  h3 { font-size: clamp(20px, 1.8vw, 24px); letter-spacing: -0.015em; }
+  p  { text-wrap: pretty; }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: var(--rm-w-semibold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rm-blue);
+    margin: 0 0 var(--rm-s-5);
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 36px; height: 1px;
+    background: var(--rm-blue);
+  }
+  .eyebrow.center { justify-content: center; }
+  .eyebrow.center::before { display: none; }
+  .eyebrow.center::after {
+    content: "";
+    flex: 0 0 32px;
+    height: 1px;
+    background: var(--rm-blue);
+  }
+  .eyebrow.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .eyebrow.center::before {
+    content: "";
+    display: inline-block;
+    flex: 0 0 32px;
+    height: 1px;
+    background: var(--rm-blue);
+  }
+
+  .section-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+  .section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 64px;
+    background: var(--rm-blue);
+    border-radius: 2px;
+  }
+  .center .section-title::after { left: 50%; transform: translateX(-50%); }
+
+  .lead {
+    font-size: 18px;
+    line-height: var(--rm-lh-relaxed);
+    max-width: 640px;
+    margin: 24px 0 0;
+    color: var(--rm-gray-600);
+  }
+  b, strong { color: var(--rm-ink); font-weight: var(--rm-w-bold); }
+  .blue { color: var(--rm-blue); }
+
+  /* ===== Topbar ===== */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(238, 241, 245, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,10,19,0.05);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: var(--rm-w-black);
+    color: var(--rm-ink);
+    letter-spacing: -0.02em;
+    font-size: 18px;
+  }
+  .brand-mark {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--rm-navy);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: var(--rm-w-black);
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+  .topbar-nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .topbar-nav a {
+    font-size: 14px;
+    font-weight: var(--rm-w-medium);
+    color: var(--rm-gray-600);
+    transition: color 0.15s ease;
+  }
+  .topbar-nav a:hover { color: var(--rm-ink); }
+  @media (max-width: 820px) { .topbar-nav { display: none; } }
+
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: var(--rm-radius-pill);
+    font-family: var(--rm-font);
+    font-weight: var(--rm-w-medium);
+    font-size: 14px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary {
+    background: var(--rm-blue);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(3,127,240,0.28);
+  }
+  .btn-primary:hover {
+    background: var(--rm-blue-600);
+    box-shadow: 0 12px 30px rgba(3,127,240,0.38);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--rm-ink);
+    border-color: var(--rm-gray-300);
+  }
+  .btn-ghost:hover { border-color: var(--rm-ink); }
+  .btn-white {
+    background: #fff;
+    color: var(--rm-ink);
+  }
+  .btn-white:hover { background: var(--rm-gray-50); }
+  .btn-lg { padding: 18px 32px; font-size: 16px; }
+  .btn-icon {
+    display: inline-grid; place-items: center;
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.2);
+    font-size: 12px;
+    line-height: 1;
+  }
+  .btn-ghost .btn-icon,
+  .btn-white .btn-icon {
+    background: transparent;
+    border: 1.5px solid currentColor;
+  }
+
+  /* ===== Pills ===== */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--rm-radius-pill);
+    background: rgba(3,127,240,0.08);
+    color: var(--rm-blue);
+    font-size: 12px;
+    font-weight: var(--rm-w-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid rgba(3,127,240,0.18);
+  }
+  .pill-dot::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: var(--rm-blue);
+    box-shadow: 0 0 0 4px rgba(3,127,240,0.18);
+  }
+
+  /* ============ HERO ============ */
+  .hero { padding: clamp(60px, 8vw, 120px) 0 clamp(80px, 10vw, 140px); text-align: center; }
+
+  .hero-pill {
+    display: inline-flex;
+    margin-bottom: var(--rm-s-10);
+  }
+  .hero-pill-wrap,
+  .hero-name-wrap { display: block; }
+
+  /* Gooey morphing display */
+  .goo-stage {
+    position: relative;
+    height: clamp(96px, 14vw, 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 var(--rm-s-6);
+  }
+  .goo-host {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    filter: url(#rm-goo-threshold);
+  }
+  .goo-text {
+    position: absolute;
+    display: inline-block;
+    user-select: none;
+    text-align: center;
+    font-family: var(--rm-font);
+    font-weight: var(--rm-w-black);
+    color: var(--rm-blue);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-size: clamp(56px, 9.5vw, 120px);
+    white-space: nowrap;
+    will-change: filter, opacity;
+  }
+
+  .hero-name {
+    font-size: 13px;
+    font-weight: var(--rm-w-semibold);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--rm-ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 auto var(--rm-s-8);
+  }
+  .hero-name::before,
+  .hero-name::after {
+    content: "";
+    width: 36px; height: 1px;
+    background: var(--rm-ink);
+    opacity: 0.5;
+  }
+
+  .hero h1 {
+    max-width: 900px;
+    margin: 0 auto var(--rm-s-6);
+    font-size: clamp(34px, 4.6vw, 64px);
+    letter-spacing: -0.03em;
+  }
+  .hero h1 .accent { color: var(--rm-blue); position: relative; }
+  .hero h1 .accent::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 4px;
+    height: 6px;
+    background: rgba(3,127,240,0.18);
+    border-radius: 4px;
+    z-index: -1;
+  }
+  .hero-sub {
+    max-width: 580px;
+    margin: 0 auto var(--rm-s-10);
+    font-size: 18px;
+    line-height: var(--rm-lh-relaxed);
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-trust {
+    margin-top: var(--rm-s-16);
+    padding-top: var(--rm-s-10);
+    border-top: 1px solid var(--rm-gray-300);
+    display: flex;
+    gap: clamp(24px, 5vw, 64px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-trust-item {
+    display: flex; flex-direction: column;
+    gap: 2px; text-align: center;
+  }
+  .hero-trust-num {
+    font-weight: var(--rm-w-black);
+    color: var(--rm-ink);
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .hero-trust-label {
+    font-size: 12px;
+    color: var(--rm-gray-500);
+    letter-spacing: 0.06em;
+  }
+
+  /* ============ SERVIÇOS ============ */
+  .services-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: var(--rm-s-16);
+  }
+  @media (max-width: 760px) {
+    .services-head { flex-direction: column; align-items: flex-start; }
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 760px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+  .service {
+    background: #fff;
+    border-radius: var(--rm-radius-xl);
+    padding: clamp(28px, 3.5vw, 44px);
+    box-shadow: var(--rm-shadow-xs);
+    border: 1px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .service:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--rm-shadow-md);
+    border-color: rgba(3,127,240,0.22);
+  }
+  .service-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .service-tag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: var(--rm-w-semibold);
+    color: var(--rm-blue);
+  }
+  .service-num {
+    font-family: var(--rm-font);
+    font-weight: var(--rm-w-black);
+    color: var(--rm-gray-200);
+    font-size: 44px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .service h3 { font-size: 26px; letter-spacing: -0.02em; }
+  .service-desc {
+    color: var(--rm-gray-600);
+    font-size: 16px;
+    line-height: var(--rm-lh-relaxed);
+    margin: 0;
+  }
+  .service-features {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--rm-gray-300);
+  }
+  .service-features li {
+    font-size: 14px;
+    color: var(--rm-gray-600);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .service-features li::before {
+    content: "→";
+    color: var(--rm-blue);
+    font-weight: var(--rm-w-black);
+    flex-shrink: 0;
+  }
+
+  /* ============ DIFERENCIAIS ============ */
+  .diff {
+    background: var(--rm-navy);
+    color: var(--rm-paper);
+    border-radius: clamp(24px, 3vw, 36px);
+    padding: clamp(48px, 6vw, 84px) clamp(28px, 5vw, 72px);
+    position: relative;
+    overflow: hidden;
+    margin: 0 clamp(0px, 2vw, 24px);
+  }
+  .diff::before {
+    content: "";
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(3,127,240,0.4) 0%, transparent 65%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .diff-inner { position: relative; }
+  .diff h2 { color: #fff; max-width: 720px; }
+  .diff h2::after { background: var(--rm-blue); }
+  .diff .eyebrow { color: var(--rm-blue-200); }
+  .diff .eyebrow::before { background: var(--rm-blue-200); }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  @media (max-width: 980px) { .diff-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .diff-grid { grid-template-columns: 1fr; } }
+
+  .diff-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--rm-radius-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .diff-item-num {
+    font-size: 12px;
+    color: var(--rm-blue-200);
+    font-weight: var(--rm-w-semibold);
+    letter-spacing: 0.16em;
+  }
+  .diff-item h3 {
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+  .diff-item p {
+    color: rgba(230,233,236,0.78);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ NÚMEROS ============ */
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: #fff;
+    border-radius: var(--rm-radius-xl);
+    box-shadow: var(--rm-shadow-sm);
+    overflow: hidden;
+    margin-top: clamp(40px, 5vw, 56px);
+  }
+  @media (max-width: 980px) { .numbers-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .numbers-grid { grid-template-columns: 1fr; } }
+
+  .number {
+    padding: clamp(32px, 3vw, 48px);
+    border-right: 1px solid var(--rm-gray-200);
+    border-bottom: 1px solid var(--rm-gray-200);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .number:last-child { border-right: none; }
+  @media (max-width: 980px) {
+    .number:nth-child(2n) { border-right: none; }
+  }
+  @media (max-width: 560px) {
+    .number { border-right: none; }
+  }
+  .number-val {
+    font-family: var(--rm-font);
+    font-weight: var(--rm-w-black);
+    color: var(--rm-ink);
+    font-size: clamp(40px, 4.6vw, 60px);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .number-val .blue { color: var(--rm-blue); }
+  .number-label {
+    font-size: 14px;
+    color: var(--rm-gray-600);
+    line-height: 1.4;
+  }
+  .number-tag {
+    font-size: 11px;
+    color: var(--rm-blue);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: var(--rm-w-semibold);
+  }
+
+  /* ============ FINAL CTA ============ */
+  .final-cta {
+    background: var(--rm-blue);
+    color: #fff;
+    border-radius: clamp(24px, 3vw, 36px);
+    padding: clamp(60px, 7vw, 100px) clamp(32px, 5vw, 80px);
+    position: relative;
+    overflow: hidden;
+    margin: 0 clamp(0px, 2vw, 24px) clamp(48px, 6vw, 80px);
+    text-align: center;
+  }
+  .final-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(0,32,63,0.4) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .final-cta-inner {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+  .final-cta .eyebrow {
+    color: rgba(255,255,255,0.86);
+  }
+  .final-cta .eyebrow::before {
+    display: none;
+  }
+  .final-cta h2 {
+    color: #fff;
+    font-size: clamp(36px, 4.8vw, 60px);
+    letter-spacing: -0.03em;
+  }
+  .final-cta-sub {
+    color: rgba(255,255,255,0.88);
+    font-size: 18px;
+    line-height: var(--rm-lh-relaxed);
+    margin: 0;
+    max-width: 520px;
+  }
+  .final-cta .pill {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    border-color: rgba(255,255,255,0.32);
+  }
+  .final-cta .pill-dot::before {
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.22);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--rm-navy);
+    color: rgba(230,233,236,0.6);
+    padding: 48px 0 36px;
+    font-size: 14px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand {
+    display: flex; align-items: center; gap: 12px;
+    color: #fff;
+    font-weight: var(--rm-w-bold);
+  }
+  .footer-mark {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: var(--rm-blue);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: var(--rm-w-black);
+    font-size: 12px;
+  }
+
+  /* Subtle fade-in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero > .container > * { animation: fadeUp 0.6s ease both; }
+</style>
+</head>
+<body>
+
+<!-- =========== TOPBAR =========== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">RM</span>
+      <span>RM Digital</span>
+    </a>
+    <nav class="topbar-nav">
+      <a href="#servicos">Serviços</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#numeros">Resultados</a>
+      <a href="#cta">Contato</a>
+    </nav>
+    <a href="#cta" class="btn btn-primary">
+      Falar com a equipe
+      <span class="btn-icon">→</span>
+    </a>
+  </div>
+</header>
+
+<!-- =========== HERO =========== -->
+<section class="hero" id="top" data-screen-label="01 Hero">
+  <div class="container">
+    <div class="hero-pill-wrap">
+      <span class="pill pill-dot hero-pill">Agência de performance · Vagas abertas para 2026</span>
+    </div>
+
+    <!-- Gooey SVG filter (must live in DOM) -->
+    <svg aria-hidden="true" focusable="false" style="position:absolute; width:0; height:0; overflow:hidden;">
+      <defs>
+        <filter id="rm-goo-threshold">
+          <feColorMatrix
+            in="SourceGraphic"
+            type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 255 -140" />
+        </filter>
+      </defs>
+    </svg>
+
+    <div class="hero-name-wrap">
+      <div class="hero-name">RM Digital</div>
+    </div>
+
+    <div class="goo-stage" aria-label="Resultados, Estratégia, Performance, Crescimento">
+      <div class="goo-host">
+        <span class="goo-text" id="goo-1">Resultados</span>
+        <span class="goo-text" id="goo-2">Estratégia</span>
+      </div>
+    </div>
+
+    <h1>
+      Marketing digital com método que <span class="accent">vira receita</span> — não relatório bonito.
+    </h1>
+    <p class="hero-sub">
+      Somos a agência parceira de negócios que querem crescer com estratégia,
+      mídia paga e SEO trabalhando como um sistema só.
+    </p>
+    <div class="hero-ctas">
+      <a href="#cta" class="btn btn-primary btn-lg">
+        Falar com a equipe
+        <span class="btn-icon">→</span>
+      </a>
+      <a href="#servicos" class="btn btn-ghost btn-lg">
+        Ver nossos serviços
+        <span class="btn-icon">+</span>
+      </a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="hero-trust-item">
+        <span class="hero-trust-num">+120</span>
+        <span class="hero-trust-label">clientes atendidos</span>
+      </div>
+      <div class="hero-trust-item">
+        <span class="hero-trust-num">R$ 2M+</span>
+        <span class="hero-trust-label">gerenciados em mídia</span>
+      </div>
+      <div class="hero-trust-item">
+        <span class="hero-trust-num">+8 anos</span>
+        <span class="hero-trust-label">de operação</span>
+      </div>
+      <div class="hero-trust-item">
+        <span class="hero-trust-num">4.9/5</span>
+        <span class="hero-trust-label">nota média de clientes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== SERVIÇOS =========== -->
+<section id="servicos" data-screen-label="02 Serviços">
+  <div class="container">
+    <div class="services-head">
+      <div>
+        <p class="eyebrow">O que fazemos</p>
+        <h2 class="section-title">Quatro frentes, um único <span class="blue">objetivo de receita.</span></h2>
+      </div>
+      <p style="max-width: 380px; margin: 0; font-size: 16px; line-height: var(--rm-lh-relaxed);">
+        Não vendemos canal. Vendemos o resultado que cada canal entrega quando opera dentro de uma estratégia coordenada.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service">
+        <div class="service-head">
+          <span class="service-tag">01 · Mídia paga</span>
+          <span class="service-num">01</span>
+        </div>
+        <h3>Meta Ads</h3>
+        <p class="service-desc">
+          Aquisição previsível no Facebook e Instagram. Criativos, públicos e ofertas testados em sprints semanais.
+        </p>
+        <ul class="service-features">
+          <li>Estrutura de campanha CBO + Advantage+</li>
+          <li>Pipeline de criativos com testes A/B</li>
+          <li>Tracking server-side via CAPI</li>
+        </ul>
+      </article>
+
+      <article class="service">
+        <div class="service-head">
+          <span class="service-tag">02 · Mídia paga</span>
+          <span class="service-num">02</span>
+        </div>
+        <h3>Google Ads</h3>
+        <p class="service-desc">
+          Captura de demanda quente em Search, Performance Max e YouTube. Foco em CPA e ROAS, não em cliques vazios.
+        </p>
+        <ul class="service-features">
+          <li>Search + PMax integrados ao funil</li>
+          <li>Curadoria semanal de termos e públicos</li>
+          <li>Bid strategies ajustadas por margem</li>
+        </ul>
+      </article>
+
+      <article class="service">
+        <div class="service-head">
+          <span class="service-tag">03 · Orgânico</span>
+          <span class="service-num">03</span>
+        </div>
+        <h3>SEO</h3>
+        <p class="service-desc">
+          Crescimento orgânico que reduz o custo de aquisição da operação inteira no médio prazo.
+        </p>
+        <ul class="service-features">
+          <li>Auditoria técnica e de conteúdo</li>
+          <li>Cluster topics + linkagem interna</li>
+          <li>Calendário editorial mensal</li>
+        </ul>
+      </article>
+
+      <article class="service">
+        <div class="service-head">
+          <span class="service-tag">04 · Estratégia</span>
+          <span class="service-num">04</span>
+        </div>
+        <h3>Estratégia Digital</h3>
+        <p class="service-desc">
+          Planejamento, posicionamento e leitura de dados que orientam todas as frentes — quem decide o que fazer no mês.
+        </p>
+        <ul class="service-features">
+          <li>Relatórios mensais com leitura estratégica</li>
+          <li>Reuniões quinzenais com diretoria</li>
+          <li>Roadmap trimestral de iniciativas</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =========== DIFERENCIAIS =========== -->
+<section id="diferenciais" data-screen-label="03 Diferenciais">
+  <div class="container">
+    <div class="diff">
+      <div class="diff-inner">
+        <p class="eyebrow">Por que RM Digital</p>
+        <h2 class="section-title">Quatro coisas que <span class="blue">poucas agências</span> entregam.</h2>
+
+        <div class="diff-grid">
+          <div class="diff-item">
+            <span class="diff-item-num">01</span>
+            <h3>Time dedicado, não terceirizado</h3>
+            <p>Mídia, SEO e estratégia operam dentro de casa. Sem repasse, sem ruído, sem dependência de freelancer.</p>
+          </div>
+          <div class="diff-item">
+            <span class="diff-item-num">02</span>
+            <h3>Leitura estratégica mensal</h3>
+            <p>Você recebe o relatório com a leitura humana do que aconteceu — não um dump de dashboards do Looker.</p>
+          </div>
+          <div class="diff-item">
+            <span class="diff-item-num">03</span>
+            <h3>Transparência total</h3>
+            <p>Acesso direto às contas, métricas reais e definição clara de KPIs. Tudo o que medimos, você vê.</p>
+          </div>
+          <div class="diff-item">
+            <span class="diff-item-num">04</span>
+            <h3>Sem fidelidade obrigatória</h3>
+            <p>Renovação mensal pela entrega. Se não entregamos resultado, você sai sem multa e sem fricção.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== NÚMEROS =========== -->
+<section id="numeros" data-screen-label="04 Números">
+  <div class="container">
+    <div style="text-align: center; max-width: 720px; margin: 0 auto;">
+      <p class="eyebrow center">Resultados</p>
+      <h2 class="section-title" style="display: inline-block;">O que nossos clientes <span class="blue">colheram</span> em 2024–2025.</h2>
+      <p class="lead" style="margin: 24px auto 0;">
+        Não trabalhamos com promessa — trabalhamos com histórico. Estes são números agregados da nossa base ativa.
+      </p>
+    </div>
+
+    <div class="numbers-grid">
+      <div class="number">
+        <span class="number-tag">Base ativa</span>
+        <span class="number-val">+<span class="blue">120</span></span>
+        <span class="number-label">clientes atendidos desde 2017</span>
+      </div>
+      <div class="number">
+        <span class="number-tag">Investimento gerenciado</span>
+        <span class="number-val">R$ <span class="blue">2M+</span></span>
+        <span class="number-label">em mídia paga nos últimos 12 meses</span>
+      </div>
+      <div class="number">
+        <span class="number-tag">Performance média</span>
+        <span class="number-val"><span class="blue">3.8x</span></span>
+        <span class="number-label">ROAS médio nas contas ativas</span>
+      </div>
+      <div class="number">
+        <span class="number-tag">Retenção</span>
+        <span class="number-val"><span class="blue">94%</span></span>
+        <span class="number-label">de clientes renovam após o 3º mês</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FINAL CTA =========== -->
+<section id="cta" style="padding: 0;" data-screen-label="05 CTA final">
+  <div class="final-cta">
+    <div class="final-cta-inner">
+      <span class="pill pill-dot">Vagas abertas para 2026</span>
+      <h2 class="section-title">Vamos transformar mídia em receita?</h2>
+      <p class="final-cta-sub">
+        Conte para a gente onde sua operação está hoje e onde precisa chegar. Te respondemos em até 24h úteis com um diagnóstico inicial — sem compromisso.
+      </p>
+      <a href="mailto:contato@rmdigital.com.br" class="btn btn-white btn-lg">
+        Falar com a equipe
+        <span class="btn-icon">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== FOOTER =========== -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="footer-mark">RM</span>
+      RM Digital · Agência de performance
+    </div>
+    <div>© 2026 · contato@rmdigital.com.br</div>
+  </div>
+</footer>
+
+<script>
+  // ===== Gooey text morphing — vanilla =====
+  (function () {
+    const texts = ["Resultados", "Estratégia", "Performance", "Crescimento"];
+    const morphTime = 1;
+    const cooldownTime = 0.25;
+
+    const t1 = document.getElementById("goo-1");
+    const t2 = document.getElementById("goo-2");
+    if (!t1 || !t2) return;
+
+    let textIndex = texts.length - 1;
+    let time = new Date();
+    let morph = 0;
+    let cooldown = cooldownTime;
+
+    // initial state
+    t1.textContent = texts[textIndex % texts.length];
+    t2.textContent = texts[(textIndex + 1) % texts.length];
+    t1.style.opacity = "100%";
+    t2.style.opacity = "0%";
+
+    function setMorph(fraction) {
+      t2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+      fraction = 1 - fraction;
+      t1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      t1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+    }
+    function doCooldown() {
+      morph = 0;
+      t2.style.filter = "";
+      t2.style.opacity = "100%";
+      t1.style.filter = "";
+      t1.style.opacity = "0%";
+    }
+    function doMorph() {
+      morph -= cooldown;
+      cooldown = 0;
+      let fraction = morph / morphTime;
+      if (fraction > 1) {
+        cooldown = cooldownTime;
+        fraction = 1;
+      }
+      setMorph(fraction);
+    }
+    function animate() {
+      requestAnimationFrame(animate);
+      const newTime = new Date();
+      const shouldIncrementIndex = cooldown > 0;
+      const dt = (newTime.getTime() - time.getTime()) / 1000;
+      time = newTime;
+      cooldown -= dt;
+      if (cooldown <= 0) {
+        if (shouldIncrementIndex) {
+          textIndex = (textIndex + 1) % texts.length;
+          t1.textContent = texts[textIndex % texts.length];
+          t2.textContent = texts[(textIndex + 1) % texts.length];
+        }
+        doMorph();
+      } else {
+        doCooldown();
+      }
+    }
+    animate();
+  })();
+</script>
+
+</body>
+</html>
